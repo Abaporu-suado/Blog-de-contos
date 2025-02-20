@@ -100,11 +100,41 @@
             color: #333;
         }
 
-        .post p {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
+        /* Sinopse com limite de 3 linhas e a funcionalidade de expandir/recolher */
+        /* Sinopse com limite de 3 linhas e a funcionalidade de expandir/recolher */
+.post p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+    display: -webkit-box;       /* Usa o modelo de caixa flexível */
+    -webkit-line-clamp: 3;      /* Limita a exibição a 3 linhas */
+    -webkit-box-orient: vertical; /* Direciona a exibição do texto verticalmente */
+    overflow: hidden;           /* Oculta o texto que ultrapassa o limite */
+    text-overflow: ellipsis;    /* Adiciona os três pontos (...) */
+    position: relative;         /* Adiciona posição relativa para que o ícone possa ser posicionado dentro do parágrafo */
+}
+
+.post p.expandidas {
+    display: block;
+    -webkit-line-clamp: unset;  /* Remove o limite de linhas */
+}
+
+/* Estilo do ícone de expandir/recolher */
+.sinopse-expansao {
+    color: #ff6347;  /* Cor do ícone igual à do botão "Leia o conto" */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: 0;       /* Alinha o ícone com a última linha visível da sinopse */
+    right: 0;        /* Alinha o ícone à direita do parágrafo */
+    transition: transform 0.3s ease;
+}
+
+.sinopse-expansao:hover {
+    transform: scale(1.2); /* Dá um efeito de zoom ao passar o mouse */
+}
+
 
         .post .btn-leitura {
             background-color: #ff6347;
@@ -132,6 +162,78 @@
             font-size: 1rem;
         }
 
+        /* Responsividade para dispositivos móveis */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            nav a {
+                margin: 0 10px;
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .conteudo {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .post {
+                width: 90%;  /* Ajusta os posts para ficarem mais largos em telas pequenas */
+                margin-bottom: 15px;
+            }
+
+            .post img {
+                height: 150px;  /* Ajusta o tamanho da imagem em telas pequenas */
+            }
+
+            .post h2 {
+                font-size: 1.5rem;
+            }
+
+            .post p {
+                font-size: 0.9rem;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Responsividade para smartphones em modo retrato */
+        @media screen and (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            nav {
+                padding: 8px 0;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            .post h2 {
+                font-size: 1.3rem;
+            }
+
+            .post p {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 
@@ -154,8 +256,9 @@
                 <img src="https://i.imgur.com/sXCBdVa.jpg" alt="Imagem do conto 1">
                 <div class="info">
                     <h2>Sobre Mezza no Jantar</h2>
-                    <p>Um conto misterioso sobre uma floresta que esconde segredos milenares. Quando um jovem aventureiro decide desbravá-la, ele mal sabe que sua vida nunca mais será a mesma.</p>
-                    <a href="conto1.html" class="btn-leitura">Leia o conto</a>
+                    <p class="sinopse">Um conto misterioso sobre uma floresta que esconde segredos milenares. Quando um jovem aventureiro decide desbravá-la, ele mal sabe que sua vida nunca mais será a mesma... 
+                    <span class="sinopse-expansao" onclick="expandirSinopse(this)">+</span></p>
+                    <a href="https://abaporu-suado.github.io/Blog-de-contos/Contos/conto1.html" class="btn-leitura">Leia o conto</a>
                 </div>
             </div>
 
@@ -163,26 +266,39 @@
                 <img src="https://i.imgur.com/MfbDxYX.jpg" alt="Imagem do conto 2">
                 <div class="info">
                     <h2>A Jornada do Cavaleiro Sombrio</h2>
-                    <p>Em uma terra dominada pela escuridão, um cavaleiro é convocado para uma missão impossível: enfrentar o tirano que domina seu mundo. Descubra o que ele encontra pelo caminho.</p>
+                    <p class="sinopse">Em uma terra dominada pela escuridão, um cavaleiro é convocado para uma missão impossível: enfrentar o tirano que domina seu mundo. Descubra o que ele encontra pelo caminho e se surpreenda a cada nova descoberta nesta história emocionante sobre traições, amores e guerra... 
+                    <span class="sinopse-expansao" onclick="expandirSinopse(this)">+</span></p>
                     <a href="conto2.html" class="btn-leitura">Leia o conto</a>
                 </div>
             </div>
 
-	<div class="post">
+            <div class="post">
                 <img src="https://i.imgur.com/OXJm3PS.jpg" alt="Imagem do conto 3">
                 <div class="info">
                     <h2>Uma história Dark Fantasy</h2>
-                    <p>The Dark Fantasy Trilogy.</p>
+                    <p class="sinopse">The Dark Fantasy Trilogy... <span class="sinopse-expansao" onclick="expandirSinopse(this)">+</span></p>
                     <a href="conto3.html" class="btn-leitura">Leia o conto</a>
                 </div>
             </div>
-
         </div>
     </div>
 
     <footer>
         <p>&copy; 2025 Blog de Contos. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        function expandirSinopse(elemento) {
+            var sinopse = elemento.parentElement;
+            sinopse.classList.toggle('expandidas');
+            
+            if (sinopse.classList.contains('expandidas')) {
+                elemento.innerText = "−";  // Alterar para símbolo de "menos" quando expandir
+            } else {
+                elemento.innerText = "+";  // Alterar para símbolo de "mais" quando recolher
+            }
+        }
+    </script>
 </body>
 
 </html>
